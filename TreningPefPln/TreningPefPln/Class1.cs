@@ -16,7 +16,7 @@ namespace TreningPefPln
 
         public void ReadFile(string path)
         {
-            string [] lines = File.ReadAllLines(path); // читаем все строки в файле
+            string[] lines = File.ReadAllLines(path); // читаем все строки в файле
             int idx = 0; // номер текущей строки
 
             int m = int.Parse(lines[idx++]); //количество поставщиков первая строка
@@ -61,8 +61,7 @@ namespace TreningPefPln
             int n = demand.Length;
             plan = new double[m, n];
 
-            int[] s = (int[])sypply.Clone();
-            int[] d = (int[])demand.Clone();
+           
             // копиии чтобы не портить входные данные
             totalCost = 0;
 
@@ -71,20 +70,20 @@ namespace TreningPefPln
 
             while (i< m && j < n)
             {
-                int qty = Math.Min(s[i], d[j]);
+                int qty = Math.Min(sypply[i], demand[j]);
                 plan[i, j] = qty;
 
                 totalCost += qty * cost[i,j];
 
-                s[i] -= qty;
-                d[j] -= qty;
+                sypply[i] -= qty;
+                demand[j] -= qty;
 
-                if (s[i] == 0 && d[j] == 0)
+                if (sypply[i] == 0 && demand[j] == 0)
                 {
                     i++;
                     j++;
                 }
-                else if (s[i] == 0)
+                else if (sypply[i] == 0)
                 {
                     i++;
                 }
@@ -103,8 +102,7 @@ namespace TreningPefPln
             int n = demand.Length;
             plan = new double[m, n];
 
-            int[] s = (int[])sypply.Clone();
-            int[] d = (int[])demand.Clone();
+           
             // копиии чтобы не портить входные данные
             totalCost = 0;
 
@@ -116,10 +114,10 @@ namespace TreningPefPln
 
                 for (int i = 0; i < m; i++)
                 {
-                    if (s[i] == 0) continue;
+                    if (sypply[i] == 0) continue;
                     for (int j = 0; j < n; j++)
                     {
-                        if (d[j] == 0) continue;
+                        if (demand[j] == 0) continue;
                         if (cost[i, j] < minCost)
                         {
                             minCost = cost[i, j];
@@ -130,11 +128,11 @@ namespace TreningPefPln
 
                 if (minI == -1) break;
 
-                int qty = Math.Min(s[minI], d[minJ]);
+                int qty = Math.Min(sypply[minI], demand[minJ]);
                 plan[minI, minJ] = qty;
                 totalCost += qty * cost[minI, minJ];
-                s[minI] -= qty;
-                d[minJ] -= qty;
+                sypply[minI] -= qty;
+                demand[minJ] -= qty;
             }
         }
 
