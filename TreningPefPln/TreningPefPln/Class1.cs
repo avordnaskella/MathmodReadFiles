@@ -96,8 +96,49 @@ namespace TreningPefPln
             }
 
         }
-    }
 
+        public void MinEl()
+        {
+            int m = sypply.Length;
+            int n = demand.Length;
+            plan = new double[m, n];
+
+            int[] s = (int[])sypply.Clone();
+            int[] d = (int[])demand.Clone();
+            // копиии чтобы не портить входные данные
+            totalCost = 0;
+
+            while (true)
+            {
+                double minCost = double.MaxValue;
+                int minI = -1;
+                int minJ = -1;
+
+                for (int i = 0; i < m; i++)
+                {
+                    if (s[i] == 0) continue;
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (d[j] == 0) continue;
+                        if (cost[i, j] < minCost)
+                        {
+                            minCost = cost[i, j];
+                            minI = i; minJ = j;
+                        }
+                    }
+                }
+
+                if (minI == -1) break;
+
+                int qty = Math.Min(s[minI], d[minJ]);
+                plan[minI, minJ] = qty;
+                totalCost += qty * cost[minI, minJ];
+                s[minI] -= qty;
+                d[minJ] -= qty;
+            }
+        }
+
+    }
 }
 
 
