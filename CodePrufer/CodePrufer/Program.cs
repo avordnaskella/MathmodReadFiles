@@ -1,19 +1,17 @@
 ﻿using CodePrufer;
 
+//var cp = new Class1();
 
-//string inputFile = "input.txt";
-//string outputFile = "output.txt";
+//cp.ReadFromFile("input.txt");
 
-//Class1.ReadFromFile(inputFile);
+//int[] code = cp.Encode();
 
-//int[] code = Class1.Encode();
+//cp.WriteFile("output.txt", code);
 
-//Class1.WriteToFile(outputFile, code);
 
-var cp = new Class1();
+Class1 cp = new Class1();
 
-cp.ReadFromFile("input.txt");
-
+cp.ReadFile("input.txt");
 int[] code = cp.Encode();
 
-cp.WriteFile("output.txt", code);
+cp.WriteFile("otput.txt", code);

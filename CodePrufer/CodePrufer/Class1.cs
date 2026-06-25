@@ -6,66 +6,64 @@ namespace CodePrufer
 {
     internal class Class1
     {
-       int n;
-       List<int>[] adj;
+        int n; // количество вершин
+        List<int>[] adj; // список смежности
 
-       public void ReadFromFile(string path)
+        public void ReadFile(string filename)
         {
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines(filename); // читаем весь файл в массив строк
+            n = int.Parse(lines[0]); // количество вершин
 
-            n = int.Parse(lines[0]);
-
-            adj = new List<int>[n + 1];
+            adj = new List<int>[n + 1]; // массив списков
             for (int i = 1; i <= n; i++)
-                adj[i] = new List<int>();
+            {
+                adj[i] = new List<int>(); // инициализируем каждый список
+            }
 
             for (int i = 1; i <= n - 1; i++)
             {
                 string[] parts = lines[i].Split(' ');
                 int u = int.Parse(parts[0]);
                 int v = int.Parse(parts[1]);
+
                 adj[u].Add(v);
                 adj[v].Add(u);
             }
+
         }
 
-        public  int[] Encode()
-        {
-            int[] degree = new int[n + 1];
-            for (int i = 1; i <= n; i++)
-                degree[i] = adj[i].Count;
-
-            List<int>[] copy = new List<int>[n + 1];
-            for (int i = 1; i <= n; i++)
-                copy[i] = new List<int>(adj[i]);
-
-            int[] code = new int[n - 2];
-
-            for (int step = 0; step < n - 2; step++)
-            {
-                for (int v = 1; v <= n; v++)
-                {
-                    if (degree[v] == 1)
-                    {
-                        int neighbor = copy[v][0];
-                        code[step] = neighbor;
-
-                        degree[v] = 0;
-                        copy[neighbor].Remove(v);
-                        degree[neighbor]--;
-                        break;
-                    }
-                }
-            }
-
-            return code;
-        }
-
-        // Записываем результат в файл
-       public void WriteFile(string path, int[] code)
+        public void WriteFile(string path, int[] code)
         {
             File.WriteAllText(path, "Код Прюфера: " + string.Join(" ", code));
         }
 
+        public int[] Encode()
+        {
+            int[] degree = new int[n + 1]; // считаем степень каждой вершины
+            for (int i = 1; i <= n; i++)
+            {
+                degree[i] = adj[i].Count;
+            }
+
+            int[] code = new int[n - 2]; // код прюфера всгда длиной -2
+            
+            for ( int step = 0; step < n - 2; step++) // повторяем n-2 раза
+            {
+                for (int v = 1; v <= n; v++) // перебираем все вершины по порядку
+                {
+                    if (degree[v] == 1) // нашли вершину с одним соседом
+                    {
+                        int neighbor = adj[v][0]; // единственный сосед вершины
+                        code[step] = neighbor; //  записываем соседа в код
+
+                        degree[v] = 0; // помечаем вершину как удалённую
+                        adj[neighbor].Remove(v); // убираем вершину из списка соседей
+                        degree[neighbor]--; // уменьшаем степень соседа
+                        break; // следующий шаг
+                    }
+                }
+            }
+            return code;
+        }
     }
 }
