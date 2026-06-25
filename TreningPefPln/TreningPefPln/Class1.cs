@@ -61,8 +61,7 @@ namespace TreningPefPln
             int n = demand.Length;
             plan = new double[m, n];
 
-           
-            // копиии чтобы не портить входные данные
+   
             totalCost = 0;
 
             int i = 0; 
@@ -103,7 +102,6 @@ namespace TreningPefPln
             plan = new double[m, n];
 
            
-            // копиии чтобы не портить входные данные
             totalCost = 0;
 
             while (true)
