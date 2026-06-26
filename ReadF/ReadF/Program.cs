@@ -8,6 +8,10 @@
 //js.ReadJson("input.json");
 //js.WriteJson("output.json");
 
-Class3 xm = new Class3();
-xm.ReadXML("input.xml");
-xm.WriteXml("output.xml");
+//Class3 xm = new Class3();
+//xm.ReadXML("input.xml");
+//xm.WriteXml("output.xml");
+
+Class4 xls = new Class4();
+xls.ReadXlsx("input.xlsx");
+xls.WriteXlsx("output.xlsx");

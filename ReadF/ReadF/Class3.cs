@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace ReadF
 {
+    // xml 
   public class Person2
     {
         public string Name { get; set; }
@@ -32,6 +33,12 @@ namespace ReadF
 
         public void WriteXml(string path)
         {
+            //List<Person> peop = new List<Person>{
+            //    new Person{ Name = "okfk", Age =  222, City = "fjfjf"},
+            //    new Person{ Name = "okfk", Age =  222, City = "fjfjf"}
+            //};
+            // запись новых данных
+
             XmlSerializer serializer = new XmlSerializer (typeof(List<Person2>));
             using (StreamWriter sr = new StreamWriter(path)) 
             { 
