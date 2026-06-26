@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace ReadF
-{
+{ //json
     class Person
     {
         public string Name {  get; set; }
