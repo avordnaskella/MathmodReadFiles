@@ -35,6 +35,15 @@ namespace ReadF
             //    new Person{ Name = "okfk", Age =  222, City = "fjfjf"}
             //}; 
             // запись в новый файл
+
+           //List<Person> newPeople = new List<Person>();
+//foreach (Person p in people)
+//{ 
+//    if(p.Age > 22)
+//    {
+//        newPeople.Add(p);
+//    }
+//}
            string json = JsonSerializer.Serialize(people);
             File.WriteAllText(path, json);
         }
