@@ -34,5 +34,33 @@ namespace ReadF
                 wb.SaveAs(path);
             }
         }
+
+
+        
+public void Filter(string path)
+{
+    using XLWorkbook wbIn = new XLWorkbook(path);
+    using XLWorkbook wbOut = new XLWorkbook();
+    {
+        IXLWorksheet wsI = wbIn.Worksheet(1);
+        IXLWorksheet wsO = wbOut.Worksheets.Add("sheet1");
+
+        int outRow = 1;
+
+        foreach (IXLRow row in wsI.RowsUsed())
+        {
+            int age = row.Cell(2).GetValue<int>();
+            if (age > 5)
+            {
+                wsO.Cell(outRow,1).Value = row.Cell(1).GetValue<string>();
+                wsO.Cell(outRow,2).Value = row.Cell(2).GetValue<string>();
+                outRow++;
+
+            }
+        }
+
+        wbOut.SaveAs("itog.xlsx");
+    }
+}
     }
 }
