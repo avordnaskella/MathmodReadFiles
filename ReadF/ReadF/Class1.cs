@@ -24,7 +24,9 @@ namespace ReadF
 
         public void WriteFileCSV(string path)
         {
-            
+            // string[] text;
+            // text = new string[] { "dkkdkd, 14", "dlld, 55", "dfkdk, 122" };
+            // File.WriteAllLines(filename, text);
 
             File.WriteAllLines("output.csv", lines);
         }
