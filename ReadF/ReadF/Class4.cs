@@ -8,6 +8,30 @@ namespace ReadF
 {
     internal class Class4
     {
+
+
+        public void ReadAndWrite(string path)
+ {
+     using (XLWorkbook wbIn = new XLWorkbook(path)) 
+     using(XLWorkbook wbOut= new XLWorkbook())
+     {
+         IXLWorksheet wsIn = wbIn.Worksheet(1);
+         IXLWorksheet wsOut = wbOut.Worksheets.Add("sheet1");
+         int outRow = 1;
+         foreach (IXLRow row in wsIn.RowsUsed())
+         {
+             Console.WriteLine(row.Cell(1).GetValue<string>() + row.Cell(2).GetValue<string>());
+             foreach (IXLCell cell in row.CellsUsed())
+             {
+                 wsOut.Cell(outRow, cell.Address.ColumnNumber).Value = cell.Value;
+             }
+         }
+
+         wbOut.SaveAs("prim.xlsx");
+     }
+     
+ }
+        
        public void ReadXlsx(string path)
         {
             using (XLWorkbook wb = new XLWorkbook(path))
