@@ -8,6 +8,38 @@ namespace ReadF
 {
     internal class Class4
     {
+
+public void ReadFile(string path)
+{
+    using (XLWorkbook wbIn = new XLWorkbook(path))
+    using (XLWorkbook wbOut = new XLWorkbook())
+    {
+        IXLWorksheet wsIn = wbIn.Worksheet(1);
+        IXLWorksheet wsOut = wbOut.Worksheets.Add("Sheet1");
+
+        int outRow = 1;
+        foreach (IXLRow row in wsIn.RowsUsed(0))
+        {
+            int age = row.Cell(2).GetValue<int>();
+            if (age > 15) {
+                string col1 = row.Cell(1).GetValue<string>();
+                string col2 = row.Cell(2).GetValue<string>();
+
+                Console.WriteLine(col1 + " " + col2);
+
+                wsOut.Cell(outRow, 1).Value = col1;
+                wsOut.Cell(outRow, 2).Value = col2;
+                outRow++;
+            }
+        }
+
+        wbOut.SaveAs("output.xlsx");
+    }
+}
+
+
+
+        
  public void ReadAndWriteXl(string path)
   {
       using (XLWorkbook wbIn = new XLWorkbook(path))
